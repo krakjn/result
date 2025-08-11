@@ -1,4 +1,5 @@
 #include "result.h"
+#include <format>
 #include <iostream>
 #include <string>
 
@@ -14,9 +15,9 @@ int main() {
   auto number_result = parse_number("42").map([](int num) { return num * 2; });
 
   if (number_result.is_ok()) {
-    std::cout << "Transformed Result: " << number_result.unwrap() << "\n";
+    std::cout << std::format("Transformed Result: {}\n", number_result.unwrap());
   } else {
-    std::cout << "Error: " << number_result.unwrap_err() << "\n";
+    std::cout << std::format("Error: {}\n", number_result.unwrap_err());
   }
 
   return 0;

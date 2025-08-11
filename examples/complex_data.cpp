@@ -1,4 +1,5 @@
 #include "result.h"
+#include <format>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,11 +17,11 @@ int main() {
   if (list_result.is_ok()) {
     std::cout << "Generated list: ";
     for (const auto &val : list_result.unwrap()) {
-      std::cout << val << " ";
+      std::cout << std::format("{} ", val);
     }
-    std::cout << "\n";
+    std::cout << '\n';
   } else {
-    std::cout << "Error: " << list_result.unwrap_err() << "\n";
+    std::cout << std::format("Error: {}\n", list_result.unwrap_err());
   }
 
   return 0;

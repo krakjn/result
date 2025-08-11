@@ -1,4 +1,5 @@
 #include "result.h"
+#include <format>
 #include <iostream>
 #include <string>
 
@@ -18,9 +19,9 @@ int main() {
   auto chained_result = parse_number("21").and_then(multiply_by_two);
 
   if (chained_result.is_ok()) {
-    std::cout << "Chained Result: " << chained_result.unwrap() << "\n";
+    std::cout << std::format("Chained Result: {}\n", chained_result.unwrap());
   } else {
-    std::cout << "Error: " << chained_result.unwrap_err() << "\n";
+    std::cout << std::format("Error: {}\n", chained_result.unwrap_err());
   }
 
   return 0;

@@ -1,4 +1,5 @@
 #include "result.h"
+#include <format>
 #include <iostream>
 #include <string>
 
@@ -28,17 +29,16 @@ int main() {
   auto result = safe_divide(10, 0);
 
   if (result.is_ok()) {
-    std::cout << "Result: " << result.unwrap() << "\n";
+    std::cout << std::format("Result: {}\n", result.unwrap());
   } else {
-    std::cout << "Error: " << error_code_to_string(result.unwrap_err()) << "\n";
+    std::cout << std::format("Error: {}\n", error_code_to_string(result.unwrap_err()));
   }
 
   auto valid_result = safe_divide(10, 2);
   if (valid_result.is_ok()) {
-    std::cout << "Result: " << valid_result.unwrap() << "\n";
+    std::cout << std::format("Result: {}\n", valid_result.unwrap());
   } else {
-    std::cout << "Error: " << error_code_to_string(valid_result.unwrap_err())
-              << "\n";
+    std::cout << std::format("Error: {}\n", error_code_to_string(valid_result.unwrap_err()));
   }
 
   return 0;
