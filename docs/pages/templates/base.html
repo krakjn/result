@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} · Result</title>
+    <script>
+        // Set the theme before first paint so dark mode does not flash light.
+        (function () {
+            var saved = localStorage.getItem("theme");
+            var dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+            document.documentElement.dataset.theme = dark ? "dark" : "light";
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/css/theme.css' | url }}">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script defer src="{{ '/js/site.js' | url }}"></script>
+</head>
+<body{% if page.url == '/' %} class="home"{% endif %}>
+    <div class="progress" aria-hidden="true"></div>
+    <div class="hull">
+        <header class="bar">
+            <a class="bar-home" href="{{ '/' | url }}">
+                <svg class="gear" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="12" cy="12" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <path d="M12 1.5v2.4M12 20.1v2.4M1.5 12h2.4M20.1 12h2.4"/>
+                        <path d="M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M19.4 4.6l-1.7 1.7M6.3 17.7l-1.7 1.7"/>
+                    </g>
+                </svg>
+                <span class="bar-copy">
+                    <span class="brand">Result</span>
+                    <span class="tag">One header. Two outcomes.</span>
+                </span>
+            </a>
+            <span class="serial">C++11 → 20<span>header only</span></span>
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+        </header>
+
+        {% if page.url == '/' %}
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Rust's Result, for C++</p>
+                <p class="hero-title"><span class="t-type">Result</span><span class="t-punct">&lt;</span><span class="t-ok">T</span><span class="t-punct">, </span><span class="t-err">E</span><span class="t-punct">&gt;</span></p>
+                <p class="hero-lede">A value or an error, never a polite mixture of both. Copy one header, include it, link nothing.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-solid" href="{{ '/api/' | url }}">Read the machinery</a>
+                    <a class="btn btn-ghost" href="{{ '/examples/' | url }}">See the demonstrations</a>
+                </div>
+                <ul class="stats">
+                    <li><strong>1</strong><span>header</span></li>
+                    <li><strong>0</strong><span>libraries to link</span></li>
+                    <li><strong>11–20</strong><span>C++ standards tested</span></li>
+                </ul>
+            </div>
+            <div class="dial" aria-hidden="true">
+                <div class="dial-head">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="dial-file">divide(10, b)</span>
+                </div>
+                <div class="dial-body">
+                    <div class="outcome outcome-ok">
+                        <span class="lamp"></span>
+                        <code>b = 2 → Ok(5)</code>
+                    </div>
+                    <div class="outcome outcome-err">
+                        <span class="lamp"></span>
+                        <code>b = 0 → Err("division by zero")</code>
+                    </div>
+                </div>
+                <svg class="hero-gear" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="12" cy="12" r="6.25" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <g stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                        <path d="M12 1.5v2.4M12 20.1v2.4M1.5 12h2.4M20.1 12h2.4"/>
+                        <path d="M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M19.4 4.6l-1.7 1.7M6.3 17.7l-1.7 1.7"/>
+                    </g>
+                </svg>
+            </div>
+        </section>
+        {% endif %}
+
+        <div class="works">
+            <nav class="panel" aria-label="Pages">
+                <p class="panel-label">Pages</p>
+                {% set labels = {
+                    '/': 'The Header',
+                    '/api/': 'The Machinery',
+                    '/examples/': 'The Demonstrations'
+                } %}
+                <ul class="gauges">
+                    {% for item in nav %}
+                    <li>
+                        <a href="{{ item.page.url | url }}"{% if item.page.url == page.url %} class="active" aria-current="page"{% endif %}>
+                            {{ labels.get(item.page.url, item.title) }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% if page.toc and page.toc.html.count('<li>') > 1 %}
+                <p class="panel-label">On this page</p>
+                <div class="toc">
+                    {{ page.toc.html }}
+                </div>
+                {% endif %}
+            </nav>
+
+            <main class="frame">
+                {{ page.html }}
+            </main>
+        </div>
+
+        <footer class="keel">
+            <span>One file. The rest is commentary.</span>
+            <a href="https://github.com/ballast-dev/result">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>

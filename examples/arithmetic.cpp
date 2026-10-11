@@ -2,25 +2,16 @@
 #include <iostream>
 #include <string>
 
-using MyType = Result<int, std::string>;
-
-MyType divide(int a, int b) {
+Result<int, std::string> divide(int a, int b) {
   if (b == 0) {
-    return MyType::Err("Division by zero");
+    return Err("division by zero");
   }
-  return MyType::Ok(a / b);
+  return Ok(a / b);
 }
 
 int main() {
-  auto result = divide(10, 2);
-  if (result.is_ok()) {
-    std::cout << "Result: " << result.unwrap() << "\n";
-  } else {
-    std::cout << "Error: " << result.unwrap_err() << "\n";
-  }
-
-  auto error_result = divide(10, 0);
-  std::cout << "Handled Error: " << error_result.unwrap_or(-1) << "\n";
-
+  std::cout << "10 / 2 = " << divide(10, 2).expect("2 is not zero") << "\n";
+  std::cout << "10 / 0 = " << divide(10, 0).unwrap_or(-1) << " (fallback)\n";
+  std::cout << "10 / 0 error: " << divide(10, 0).unwrap_err() << "\n";
   return 0;
 }

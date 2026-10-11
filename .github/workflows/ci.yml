@@ -10,10 +10,14 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cxx: [g++, clang++]
     steps:
       - uses: actions/checkout@v4
       - name: Configure
-        run: cmake -S . -B build
+        run: cmake -S . -B build -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
       - name: Build
         run: cmake --build build
       - name: Test
@@ -28,20 +32,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install uv
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - name: Install MkDocs 2
-        run: |
-          source "$HOME/.local/bin/env"
-          uv python install 3.12
-          uv tool install 'mkdocs>=2.0.0.dev0' --prerelease allow --python 3.12
-          uv tool list | grep 'mkdocs v2\.'
       - name: Build the doc site
-        run: |
-          source "$HOME/.local/bin/env"
-          mkdocs build
+        run: sh docs/build.sh
       - uses: actions/upload-artifact@v4
         with:
           name: site
-          path: site
+          path: docs/site
 
   deploy:
     needs: docs

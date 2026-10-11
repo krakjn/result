@@ -1,23 +1,23 @@
 #include "result.h"
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 Result<int, std::string> parse_number(const std::string &input) {
   try {
-    return Result<int, std::string>::Ok(std::stoi(input));
-  } catch (...) {
-    return Result<int, std::string>::Err("Invalid number.");
+    return Ok(std::stoi(input));
+  } catch (const std::exception &) {
+    return Err("invalid number: " + input);
   }
 }
 
 int main() {
-  auto number_result = parse_number("42").map([](int num) { return num * 2; });
-
-  if (number_result.is_ok()) {
-    std::cout << "Transformed Result: " << number_result.unwrap() << "\n";
-  } else {
-    std::cout << "Error: " << number_result.unwrap_err() << "\n";
-  }
-
+  std::cout << "42 doubled: "
+            << parse_number("42").map([](int n) { return n * 2; }).expect(
+                   "42 parses")
+            << "\n";
+  std::cout << "x doubled: "
+            << parse_number("x").map([](int n) { return n * 2; }).unwrap_err()
+            << "\n";
   return 0;
 }

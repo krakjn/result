@@ -1,27 +1,24 @@
 #include "result.h"
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 Result<int, std::string> parse_number(const std::string &input) {
   try {
-    return Result<int, std::string>::Ok(std::stoi(input));
-  } catch (...) {
-    return Result<int, std::string>::Err("Invalid number.");
+    return Ok(std::stoi(input));
+  } catch (const std::exception &) {
+    return Err("invalid number: " + input);
   }
 }
 
-Result<int, std::string> multiply_by_two(int num) {
-  return Result<int, std::string>::Ok(num * 2);
-}
+Result<int, std::string> multiply_by_two(int num) { return Ok(num * 2); }
 
 int main() {
-  auto chained_result = parse_number("21").and_then(multiply_by_two);
-
-  if (chained_result.is_ok()) {
-    std::cout << "Chained Result: " << chained_result.unwrap() << "\n";
-  } else {
-    std::cout << "Error: " << chained_result.unwrap_err() << "\n";
-  }
-
+  std::cout << "21 * 2 = "
+            << parse_number("21").and_then(multiply_by_two).expect("21 parses")
+            << "\n";
+  std::cout << "abc * 2: "
+            << parse_number("abc").and_then(multiply_by_two).unwrap_err()
+            << "\n";
   return 0;
 }
