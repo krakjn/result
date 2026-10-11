@@ -20,6 +20,9 @@ std version:
     cmake --build build/c{{version}} -j
     ctest --test-dir build/c{{version}} --output-on-failure
 
+outputs:
+    python3 docs/capture.py
+
 docs:
     sh docs/build.sh
 

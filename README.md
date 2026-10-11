@@ -10,18 +10,37 @@ Copy `result.h` from `main` branch into your project and your done!
 
 ## [Docs](https://krakjn.github.io/result/)
 
+<!-- capture:arithmetic-source -->
 ```cpp
 #include "result.h"
+#include <iostream>
+#include <string>
 
 Result<int, std::string> divide(int a, int b) {
-    if (b == 0) {
-        return Err("division by zero");
-    }
-    return Ok(a / b);
+  if (b == 0) {
+    return Err("division by zero");
+  }
+  return Ok(a / b);
 }
 
-int half_of_ten = divide(10, 2).expect("2 is not zero");
+int main() {
+  std::cout << "10 / 2 = " << divide(10, 2).expect("2 is not zero") << "\n";
+  std::cout << "10 / 0 = " << divide(10, 0).unwrap_or(-1) << " (fallback)\n";
+  std::cout << "10 / 0 error: " << divide(10, 0).unwrap_err() << "\n";
+  return 0;
+}
 ```
+<!-- /capture:arithmetic-source -->
+
+<!-- capture:arithmetic-output -->
+```text
+10 / 2 = 5
+10 / 0 = -1 (fallback)
+10 / 0 error: division by zero
+```
+<!-- /capture:arithmetic-output -->
+
+The other programs, and what they print, are in [the demonstrations](https://krakjn.github.io/result/examples/).
 
 `Ok` and `Err` are free functions. The tag converts into any `Result` that can hold it, so the type is written once, on the function, where it belongs. The value and the error share a union. `unwrap` on the wrong side prints a line and calls `abort`, because a polite error returned from the error type is how I used to lose afternoons.
 

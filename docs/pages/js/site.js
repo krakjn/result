@@ -12,6 +12,9 @@
 
   if (window.hljs) {
     document.querySelectorAll("pre code").forEach(function (block) {
+      if (block.classList.contains("language-stdout") || block.classList.contains("language-stderr")) {
+        return;
+      }
       window.hljs.highlightElement(block);
     });
   }
