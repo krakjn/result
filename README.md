@@ -1,15 +1,14 @@
-# Result
+# `result.h`
 
-<p align="center">
-One header. Two outcomes. Nothing to link.<br>
-<a href="https://ballast-dev.github.io/result/">Docs</a>
-&nbsp;·&nbsp;
-<a href="https://ballast-dev.github.io/result/api/">The machinery</a>
-&nbsp;·&nbsp;
-<a href="https://ballast-dev.github.io/result/examples/">The demonstrations</a>
-</p>
+Rust taught me treating errors as types is awesome. I really wished C/C++ had this feature so I made `result.h` 
 
-A `Result<T, E>` in the Rust shape, for C++11 and up. I have shipped enough build systems to know the header is the safe part.
+Instead of `throw`ing and doing a bunch of exception handling, just return the error! The **beauty of result.h** is you can return both the valid data AND the error in _one type!_ It is truly ergonomic and I hope you give it a try. 
+
+## Quickstart
+
+Copy `result.h` from `main` branch into your project and your done! 
+
+## [Docs](https://krakjn.github.io/result/)
 
 ```cpp
 #include "result.h"
@@ -41,9 +40,8 @@ Result<int, std::string> half(int a, int b) {
 | C++17 | `ok()` and `err()` as `std::optional`, and a warning when a `Result` is discarded |
 | C++20 | `constexpr`, so one can sit inside a `static_assert` |
 
-Why each gate exists, and which Rust methods got left on the floor, is written down once in the [docs](https://ballast-dev.github.io/result/).
+Why each gate exists, and which Rust methods got left on the floor, is written down once in the [docs](https://krakjn.github.io/result/).
 
-Copy `result.h` next to whoever has to live with it. Include it. Link nothing. There is no library, which is the feature.
 
 The examples and tests are the only thing CMake builds:
 
