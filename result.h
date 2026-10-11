@@ -1,3 +1,6 @@
+// Copyright (c) 2024-2026 Tony B
+// SPDX-License-Identifier: MIT
+
 #ifndef RESULT_H
 #define RESULT_H
 
