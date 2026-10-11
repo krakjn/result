@@ -1,0 +1,6 @@
+[mkdocs]
+nav = [
+    {title = "The Header", path = "README.md"},
+    {title = "The Machinery", path = "api.md"},
+    {title = "The Demonstrations", path = "examples.md"},
+]

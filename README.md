@@ -1,88 +1,28 @@
 # Result
 
-A Rust-like Result type implementation in C++.
-
-## Example Usage
+A `Result<T, E>` for C++. One header. I have shipped enough build systems to know the header is the safe part.
 
 ```cpp
-#include <result.h>
+#include "result.h"
 
 Result<int, std::string> divide(int a, int b) {
     if (b == 0) {
-        return Err("Division by zero");
+        return Result<int, std::string>::Err("division by zero");
     }
-    return Ok(a / b);
-}
-
-int main() {
-    auto result = divide(10, 2);
-    
-    if (result.is_ok()) {
-        std::cout << "Result: " << result.unwrap() << std::endl;
-    } else {
-        std::cout << "Error: " << result.unwrap_err() << std::endl;
-    }
-    
-    return 0;
+    return Result<int, std::string>::Ok(a / b);
 }
 ```
 
-## Building
+Copy `result.h` next to whoever has to live with it. Include it. Do not link anything. There is no library, which is the feature. The value and the error share a union, and `unwrap` on the wrong one calls `abort`, because returning a polite error from the error type is how I used to spend afternoons.
 
-### Using Nix (Recommended)
+The examples are the only thing CMake builds:
 
-1. Install Nix:
-   ```bash
-   # Remove any existing Nix installation
-   sudo rm -rf /nix
-   
-   # Install Nix using the official installer
-   sh <(curl -L https://nixos.org/nix/install) --daemon
-   ```
+```bash
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
 
-2. Enable Nix experimental features:
-   ```bash
-   mkdir -p ~/.config/nix
-   echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-   ```
+The rest of the machinery is in the [docs](https://ballast-dev.github.io/result/).
 
-3. Enter the Nix Shell:
-   ```bash
-   nix develop
-   ```
-   Optionally add `--allow-dirty`
-
-### Using Meson
-
-1. Build the project:
-   ```bash
-   # Configure debug build
-   meson setup build --buildtype=debug
-   # Configure release build
-   meson setup build --buildtype=release
-   
-   # Build the project
-   meson compile -C build
-   
-   # Run all tests
-   meson test -C build
-   ```
-
-3. Run specific examples:
-   ```bash
-   # All binaries are in the build/ directory
-   ./build/arithmetic
-   ./build/error_handling
-   ./build/optional
-   ./build/result_chain
-   ```
-
-All build artifacts, including binaries and intermediate files, are kept in the `build/` directory. This includes:
-- Compiled binaries
-- Build configuration files
-- Test results
-- Meson's internal state
-
-## License
-
-MIT License - see LICENSE file for details
+MIT.
