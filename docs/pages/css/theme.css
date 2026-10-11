@@ -1,43 +1,25 @@
+/* Colors come from brass-tacks.css. */
 :root {
-    --bg: #f4f1eb;
-    --bg-glow: rgba(196, 161, 90, 0.18);
-    --ink: #1c1b19;
-    --muted: #6d675f;
-    --surface: #fffcf8;
-    --surface-2: #f0ebe3;
-    --iron: #161513;
-    --iron-2: #23211e;
-    --on-iron: #f6f1e7;
-    --on-iron-muted: #b7b0a4;
-    --brass: #c4a15a;
-    --brass-bright: #e2c27d;
-    --brass-deep: #8c6b2f;
-    --ok: #3f8f5b;
-    --err: #c0532d;
-    --line: rgba(28, 27, 25, 0.1);
-    --link: #8a5a12;
-    --code-bg: #161513;
-    --code-ink: #f3eee6;
-    --shadow: 0 10px 30px rgba(22, 21, 19, 0.08);
-    color-scheme: light;
-}
-
-:root[data-theme="dark"] {
-    --bg: #0f0e0d;
-    --bg-glow: rgba(196, 161, 90, 0.1);
-    --ink: #ece6da;
-    --muted: #a39b8e;
-    --surface: #181715;
-    --surface-2: #24221f;
-    --iron: #1d1b19;
-    --iron-2: #2a2724;
-    --line: rgba(236, 230, 218, 0.1);
-    --link: #e2c27d;
-    --code-bg: #0b0a09;
-    --ok: #6cc28a;
-    --err: #ec8a63;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    color-scheme: dark;
+    --bg: var(--bt-bg);
+    --bg-glow: var(--bt-bg-glow);
+    --ink: var(--bt-text);
+    --muted: var(--bt-text-muted);
+    --surface: var(--bt-surface);
+    --surface-2: var(--bt-surface-2);
+    --iron: var(--bt-panel);
+    --iron-2: var(--bt-panel-raised);
+    --on-iron: var(--bt-on-panel);
+    --on-iron-muted: var(--bt-on-panel-muted);
+    --brass: var(--bt-accent);
+    --brass-bright: var(--bt-accent-bright);
+    --brass-deep: var(--bt-accent-deep);
+    --ok: var(--bt-ok);
+    --err: var(--bt-err);
+    --line: var(--bt-line);
+    --link: var(--bt-link);
+    --code-bg: var(--bt-code-bg);
+    --code-ink: var(--bt-code-plain);
+    --shadow: var(--bt-shadow);
 }
 
 * {
@@ -806,48 +788,6 @@ body {
 .frame pre:has(code.language-stdout) .copy,
 .frame pre:has(code.language-stderr) .copy {
     top: 0.32rem;
-}
-
-/* Syntax colors for highlight.js */
-
-.hljs-keyword,
-.hljs-meta .hljs-keyword,
-.hljs-built_in {
-    color: #e2c27d;
-}
-
-.hljs-type,
-.hljs-title.class_ {
-    color: #8fc6e8;
-}
-
-.hljs-title.function_,
-.hljs-title {
-    color: #f0d9a8;
-}
-
-.hljs-string,
-.hljs-meta .hljs-string {
-    color: #9fd3a8;
-}
-
-.hljs-number,
-.hljs-literal {
-    color: #ec9a76;
-}
-
-.hljs-comment {
-    color: #7c7468;
-    font-style: italic;
-}
-
-.hljs-meta {
-    color: #c79fd8;
-}
-
-.hljs-params,
-.hljs-variable {
-    color: var(--code-ink);
 }
 
 /* Tables */
